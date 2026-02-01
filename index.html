@@ -2,88 +2,144 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Claim Your Surprise 🎁</title>
+  <title>Rent Agreement</title>
   <style>
     body {
+      margin: 0;
+      height: 100vh;
       background: linear-gradient(135deg, #ffdde1, #ee9ca7);
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
     }
+
     .card {
       background: white;
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
       text-align: center;
-      max-width: 320px;
-      animation: pop 0.6s ease;
+      max-width: 340px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: pop 0.5s ease;
     }
+
     @keyframes pop {
-      from { transform: scale(0.8); opacity: 0; }
+      from { transform: scale(0.9); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
+
     h1 {
       color: #ff4d6d;
       margin-bottom: 10px;
     }
+
     p {
+      font-size: 16px;
       color: #444;
-      font-size: 15px;
     }
+
     button {
       margin-top: 15px;
-      padding: 10px 18px;
+      padding: 10px 20px;
       border: none;
       border-radius: 25px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .yes {
       background: #ff4d6d;
       color: white;
+      font-size: 15px;
+      cursor: pointer;
     }
-    .yes:hover {
-      background: #e63b5f;
+
+    .promise {
+      font-weight: bold;
+      color: #ff4d6d;
+      font-size: 17px;
     }
-    .no {
-      background: #ddd;
-      margin-left: 8px;
+
+    .timer {
+      margin-top: 15px;
+      font-size: 15px;
+      color: #333;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <h1>🎁 Surprise Unlocked!</h1>
-  <p>Hello Smriti 🌸<br><br>
-     This is not a scam (promise 😄).<br>
-     Just one honest question from my heart 💖
-  </p>
-
-  <h2>Will you be my Valentine? 💘</h2>
-
-  <button class="yes" onclick="yes()">YES 💕</button>
-  <button class="no" onclick="no()">NO 🙈</button>
+<div class="card" id="card">
+  <h1>Verification Step 1 💌</h1>
+  <p>Will you be my Valentine?</p>
+  <button onclick="next()">YES 😊</button>
 </div>
 
 <script>
-  function yes() {
-    document.querySelector('.card').innerHTML = `
-      <h1>🥰 YAY!</h1>
-      <p>You just made someone very happy 💖<br><br>
-      Screenshot this & tell Rahul 😉</p>
-    `;
+  let step = 1;
+
+  function next() {
+    const card = document.getElementById("card");
+    step++;
+
+    if (step === 2) {
+      card.innerHTML = `
+        <h1>Step 2 😌</h1>
+        <p>Pakka?</p>
+        <button onclick="next()">Haan 😏</button>
+      `;
+    }
+
+    else if (step === 3) {
+      card.innerHTML = `
+        <h1>Step 3 🔒</h1>
+        <p>Lock kardun?</p>
+        <button onclick="next()">Lock it 🔐</button>
+      `;
+    }
+
+    else if (step === 4) {
+      card.innerHTML = `
+        <h1>Step 4 😈</h1>
+        <p>Bol I love you aur tu apni ego rakh sakta hai XD</p>
+        <button onclick="next()">I Love You ❤️</button>
+      `;
+    }
+
+    else if (step === 5) {
+      card.innerHTML = `
+        <h1>Final Promise 💖</h1>
+        <p class="promise">
+          Promise tera dhyaan rakhoonga and will always love you ❤️
+        </p>
+        <button onclick="startTimer()">Deal 🤝</button>
+      `;
+    }
   }
 
-  function no() {
-    alert("Oops 😅 wrong button… try again?");
+  function startTimer() {
+    const card = document.getElementById("card");
+    card.innerHTML = `
+      <h1>Countdown Started ⏳</h1>
+      <p>Days to go till 14th Feb 2026 💘</p>
+      <div class="timer" id="timer"></div>
+    `;
+    countdown();
+    setInterval(countdown, 1000);
+  }
+
+  function countdown() {
+    const target = new Date("February 14, 2026 00:00:00").getTime();
+    const now = new Date().getTime();
+    const diff = target - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("timer").innerHTML =
+      `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
   }
 </script>
 
 </body>
 </html>
+
